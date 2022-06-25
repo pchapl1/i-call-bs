@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Adamina">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"> 
+    <link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'images/' %}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5 mb-2 sticky-top">
+        <a class="mx-0" href="{% url 'home' %}">
+            <img class="navbar-brand h-100" src="{% static 'images/Image 7@1x.png' %}" alt="oops">
+        </a>
+        <img src="{% static 'images/Callout@1x.png' %}" alt="oops">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'login' %}">Log in</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+            </li>
+            </div>
+          </ul>
+        </div>
+    
+      </nav>
+    <div class="container">
+        {% block content %}
+    
+        {% endblock %}
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script> <!--for masking -->
+
+    <script>
+        $(document).on('click', '.confirm-delete', function(){
+            return confirm('Are you sure you want to delete this?');
+        })
+    </script>
+</body>
+</html>
