@@ -4,9 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from django.urls import reverse_lazy
 from .forms import *
+from django.contrib.auth.models import User
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(LoginRequiredMixin, ListView):
+    model = Poll
     template_name = 'home.html'
+    context_object_name = 'polls'
+
+
 
 
     # =============================CREATE VIEWS=============================
@@ -16,6 +21,23 @@ class CreatePollView(CreateView):
     template_name = 'polls/create_poll.html'
     form_class = PollForm
 
+    def form_valid(self, form):
+        try:
+            print('here')
+            print( form.instance.created_by )
+            form.instance.created_by = self.request.user
+        except Exception as e:
+            f"{e}"
+        return super().form_valid(form)
+
+    def get_initial(self):
+        try:
+            
+            initial = super(CreatePollView, self).get_initial()
+            initial['created_by'] = self.request.user
+            return initial
+        except Exception as e:
+            print(f'create poll error: {e}')
 
     # =============================READ VIEWS=============================
 class DetailPollView(DetailView):
@@ -23,9 +45,10 @@ class DetailPollView(DetailView):
     template_name = 'polls/poll_detail.html'
 
 
-class AllPollsView(ListView):
-    model = Poll
-    template_name = 'polls/all_polls.html'
+# class AllPollsView(ListView):
+#     model = Poll
+#     template_name = 'home.html'
+#     context_object_name = 'polls'
 
 
 class PopularTodayView(ListView):

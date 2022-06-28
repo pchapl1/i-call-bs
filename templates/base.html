@@ -28,17 +28,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active px-4">
+              <li class="nav-item active px-4">
+                <a class="nav-link" href="{% url 'create_poll' %}">New Poll</a>
+              </li>
               <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
             </li>
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
             </li>
-            <li class="nav-item active px-4">
-              <a class="nav-link" href="{% url 'login' %}">Log in</a>
-            </li>
-            <li class="nav-item active px-4">
-              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-            </li>
+            {% if not user.is_authenticated %}
+              <li class="nav-item active px-4">
+                <a class="nav-link" href="{% url 'login' %}">Log in</a>
+              </li>
+              <li class="nav-item active px-4">
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+            {% endif %}
             </div>
           </ul>
         </div>
