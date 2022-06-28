@@ -13,33 +13,32 @@
     </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5 mb-2 sticky-top">
-      <a class="mx-0" href="index.html">
-          <img class="navbar-brand h-100" src="img/Image 7@1x.png" alt="oops">
-      </a>
-      <img src="images/Callout@1x.png" alt="oops">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active px-4">
-            <a class="nav-link" href="rankings.html">Rankings</a>
-          </li>
-          <li class="nav-item active px-4">
-            <a class="nav-link" href="popular_today.html">Popular Today</a>
-          </li>
-          <li class="nav-item active px-4">
-            <a class="nav-link" href="#">Log in</a>
-          </li>
-          <li class="nav-item active px-4">
-            <a class="nav-link" href="register.html">Sign Up</a>
-          </li>
-  
-          </div>
-        </ul>
-      </div>
-  
-    </nav>
+    <a class="mx-0" href="{% url 'home' %}">
+        <img class="navbar-brand h-100" src="{% static 'images/Image 7@1x.png' %}" alt="oops">
+    </a>
+    <img src="{% static 'images/Callout@1x.png' %}" alt="oops">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active px-4">
+          <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
+        </li>
+        <li class="nav-item active px-4">
+          <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
+        </li>
+        <li class="nav-item active px-4">
+          <a class="nav-link" href="{% url 'login' %}">Log in</a>
+        </li>
+        <li class="nav-item active px-4">
+          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+        </div>
+      </ul>
+    </div>
+
+  </nav>
     
 </body>
 </html>
