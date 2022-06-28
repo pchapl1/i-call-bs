@@ -7,7 +7,8 @@ from .forms import *
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
-
+class AboutView(TemplateView):   
+    template_name = 'about.html'
 
     # =============================CREATE VIEWS=============================
 
