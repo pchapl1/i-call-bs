@@ -51,4 +51,4 @@ def del_poll(request, pk):
         poll.delete()
         return redirect(reverse('home'))
     except Exception as e:
-       print(f'poll delete error : {e}')
+        print(f'poll delete error : {e}')
