@@ -157,3 +157,19 @@ a.article:hover {
         display: none;
     }
 }
+
+.card {
+    float: left;
+    text-align: justify;
+}
+.card2 {
+    float: left;
+    text-align: justify;
+}
+.text-about{
+    float: right;
+    width: 65%;
+    margin: 0 auto;
+    text-align: justify;
+    margin-right: 50px;
+}
