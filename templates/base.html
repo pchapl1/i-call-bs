@@ -34,13 +34,21 @@
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
             </li>
+            
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'about' %}">About Us</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
+            </li> 
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'password_reset' %}">Password Reset</a>
+            </li>
+            <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
             </li>
+            
             {% else %}
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'login' %}">Log in</a>
@@ -55,26 +63,16 @@
     
       </nav>
     
-      <!-- <div class="left_sidebar">
-        <div class="container">
-            <div class="col-md-3">
-            Home
-            </div>
+      <div class="left_sidebar">
+    
+        <div class="col-md-2">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
+        <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
+        <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
         </div>
-    </div>
-    <div class="right-content">
-        <div class="container">
-        <div class="col-md-9">
-            Rankings
-        </div>
-        <div class="col-md-9">
-          Popular Today
-      </div>
-      <div class="col-md-9">
-        About Us
-    </div>
-        </div>
-     -->
+    
+</div>
         {% block content %}
     
         {% endblock %}

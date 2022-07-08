@@ -173,3 +173,35 @@ a.article:hover {
     text-align: justify;
     margin-right: 50px;
 }
+/* ---------------------------------------------------
+    Left Sidebar
+----------------------------------------------------- */
+
+.left_sidebar .col-md-2{
+    background-color: lightgray;
+    color: black;
+    border: 1px solid ;
+    margin-right: 5px;
+    float:left;
+}
+.left_sidebar .col-md-2 a{
+    color:black;
+}
+.left_sidebar .col-md-2 a:hover {
+    color:white;
+}
+
+
+/*---------Carousel on Popular Today ------*/
+
+.carousel{
+    height: 300px;
+    margin:flex;
+    margin-right: 30px;
+    margin-top:40px;
+    background: #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
