@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.forms import ModelForm
-from .models import Poll
+from .models import Poll, Vote
 
 
 class PollForm(ModelForm):
@@ -18,3 +18,5 @@ class PollForm(ModelForm):
             'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
             'created_by' : forms.HiddenInput(attrs={'class' : 'form-control' }),
         }
+
+

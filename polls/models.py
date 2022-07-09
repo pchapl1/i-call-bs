@@ -12,6 +12,8 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
+
+
 class Poll(models.Model):
     body = models.TextField(max_length=5000)
     bullshitter = models.CharField(max_length=75)
@@ -19,7 +21,7 @@ class Poll(models.Model):
     dislikes = models.IntegerField(default=0)
     total_votes = models.IntegerField(default=0)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='categories')
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='polls')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -28,3 +30,13 @@ class Poll(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
+
+class Vote(models.Model):
+    is_bs = models.BooleanField(blank=True, null=True)
+    voted_on_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='votes')
+    poll = models.ForeignKey(Poll, blank=True, null=True, on_delete=models.CASCADE, related_name='votes')
+
+    
+
+

@@ -7,6 +7,7 @@ urlpatterns = [
 
     # =============================CREATE=============================
     path('new-poll', CreatePollView.as_view(), name = 'create_poll'), 
+    path('new-vote/<int:pk>', views.create_vote, name = 'create_vote'), 
     
 
     # =============================READ=============================
@@ -20,6 +21,7 @@ urlpatterns = [
 
     # =============================UPDATE=============================
     path('edit-poll/<pk>', EditPollView.as_view(), name = 'edit_poll'), 
+    # path('vote/<pk>', views.poll_vote, name = 'poll_vote'), 
 
 
 

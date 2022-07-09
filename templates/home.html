@@ -3,24 +3,46 @@
 
 {% block title %} About {% endblock title %}
 {% block content %}
+{% load bootstrap_icons %}
 
 <div class="container">
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class=" d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 ">
-                {% for poll in polls %}
-                <div class="card">
+                {% for poll, bs, truth in polls %}
+                <div class="card mb-3">
                     <div class="card-header">
-                      category placeholder
+                      <h6>{{ poll.category }}</h6>
                     </div>
                     <div class="card-body">
                       <blockquote class="blockquote mb-0">
                         <p>{{ poll.body }}</p>
                         <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
                       </blockquote>
+                      <div class="text-center">
+                        <strong><p class="text-black mb-0">Is it BS?</p></strong>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <div class="not-bs d-flex mx-4">
+                          <form action="">
+                            {% csrf_token %}
+                            <a class="truth" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                            <span>{{ truth }}</span>
+                          </div>
+                          <div class="is-bs mx-4">
+                            <a class="bs" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                            <span>{{ bs }}</span>
+
+                          </div>
+                        </form>
+
+                      </div>
                     </div>
-                    <div class="card-footer text-muted">
-                      2 days ago
+                    <div class="card-footer">
+                      {% if user == poll.created_by %}
+                      <li><small><span><a class="mx-3 text-primary" href="{% url 'edit_poll' poll.pk %}">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+                      {% endif %}
+                      <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
                     </div>
                   </div>
                     {% endfor %}
@@ -29,5 +51,57 @@
         </div>
     </div>
 </div>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+    $('.truth').on('click', function(e){
+      e.preventDefault()
+      let is_bs = false
+
+      $.ajax({
+        type:'POST',
+        url: '/new-vote/'+$(this).attr('id'),
+        data: {
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          is_bs : is_bs
+        }
+      })
+    })
+
+    $('.bs').on('click', function(e){
+      e.preventDefault()
+      console.log($(this).attr('id'))
+      let is_bs = true
+
+      $.ajax({
+        type:'POST',
+        url: '/new-vote/'+$(this).attr('id'),
+        data: {
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          is_bs : is_bs
+        }
+      })
+    })
+
+
+
+})
+
+
+
+
+
+
+
+
+
+    
+</script>
 
 {% endblock content %}
