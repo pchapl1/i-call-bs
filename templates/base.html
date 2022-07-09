@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
     <link rel="stylesheet" href="{% static 'images/' %}">
+    {% load bootstrap_icons %}
 
 </head>
 <body>
@@ -29,6 +30,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active px-4">
+              <li class="nav-item active px-4">
+                <a class="nav-link" href="{% url 'create_poll' %}">{% bs_icon 'plus' %}New Poll</a>
+              </li>
               <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
             </li>
             <li class="nav-item active px-4">

@@ -3,6 +3,13 @@
     margin: 0;
 }
 
+:root {
+    --login-button: #20BDFF;
+    --shadow: 2px 5px 5px  var(--primary);
+    --text-color: #212529;
+    --background-main: rgba(253, 253, 253, .88);
+  }
+
 
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.px-5.mb-5 {
     margin:0;
@@ -142,9 +149,25 @@ a.article:hover {
     transition: all 0.3s;
 }
 
+.input-button {
+    background-color: var(--login-button);
+    border: unset;
+    color: #fff;
+    align-self: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 40px !important;
+    min-width: 175px;
+    margin-left: 3px;
+  }
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+
+li {
+    list-style-type: none;
+}
 
 @media (max-width: 768px) {
     #sidebar {

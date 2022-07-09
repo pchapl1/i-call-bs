@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.forms import ModelForm
-from .models import Poll
+from .models import Poll, Vote
 
 
 class PollForm(ModelForm):
@@ -10,11 +10,13 @@ class PollForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'title':forms.TextInput(attrs={'class' : 'form-control' ,"placeholder":"Title"}),
-            'body' : forms.Textarea(attrs={'class' : 'form-control',"placeholder":"Body" }),
-            # 'author' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Author" }),
-            'likes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Likes" }),
-            'dislikes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Dislikes" }),
-            'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Total Votes" }),
-
+            'title':forms.TextInput(attrs={'class' : 'form-control' }),
+            'body' : forms.Textarea(attrs={'class' : 'form-control' }),
+            'bullshitter' : forms.TextInput(attrs={'class' : 'form-control' }),
+            'likes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
+            'dislikes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
+            'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
+            'created_by' : forms.HiddenInput(attrs={'class' : 'form-control' }),
         }
+
+
