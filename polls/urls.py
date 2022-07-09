@@ -7,7 +7,7 @@ urlpatterns = [
     path('about/', AboutView.as_view(), name = 'about'),
 
     # =============================CREATE=============================
-    path('new-poll', CreatePollView.as_view(), name = 'create_poll'), 
+    path('create_poll', CreatePollView.as_view(), name = 'create_poll'), 
     
 
     # =============================READ=============================

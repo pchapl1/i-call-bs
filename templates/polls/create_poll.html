@@ -2,16 +2,22 @@
 {% load static %}
 
 {% block page_title %}
-    new poll
+    New Poll
 {% endblock %}
 
 
 {% block content %}
 
-<div class="container">
-    <h5 class="text-center">
-        Create poll page
-    </h5>
+<h1 style="text-align: center;">Create New Post</h1>
+
+<div class="new-post-container">
+    <div class="container text-center" style="margin-right:30px;margin-left:30px;">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+    </div>
 </div>
 
 {% endblock %}

@@ -10,11 +10,11 @@ class PollForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'title':forms.TextInput(attrs={'class' : 'form-control' }),
-            'body' : forms.Textarea(attrs={'class' : 'form-control' }),
-            'author' : forms.HiddenInput(attrs={'class' : 'form-control form-select' }),
-            'likes' : forms.HiddenInput(attrs={'class' : 'form-control form-select' }),
-            'dislikes' : forms.HiddenInput(attrs={'class' : 'form-control form-select' }),
-            'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control form-select' }),
+            'title':forms.TextInput(attrs={'class' : 'form-control' ,"placeholder":"Title"}),
+            'body' : forms.Textarea(attrs={'class' : 'form-control',"placeholder":"Body" }),
+            # 'author' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Author" }),
+            'likes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Likes" }),
+            'dislikes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Dislikes" }),
+            'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control form-select',"placeholder":"Total Votes" }),
 
         }

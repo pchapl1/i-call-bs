@@ -10,8 +10,22 @@
 
 <div class="container">
     <h5 class="text-center">
-        Rankings page
+        As voted by the users, here are...
     </h5>
+    <h2 class="text-center">History's Biggest Bull$#!+ers</h2>
 </div>
+{% for poll in Polls %}
+        
+        <div class="card post-list" style="margin:10px;background-color: rgb(235, 235, 235, .9);">
+            <div class="card-body">
+            <h5 class="card-title" style="color: black;">Poll #{{ poll.id }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ poll.title }}</h6>
+            <p class="card-text" style="color: black;">{{ poll.body| truncatechars:500}}</p>   
+            <a href="{% url 'poll_detail' poll.id %}" class="card-link">Continue reading..</a>
+            </div>
+            
+        </div>
+    
 
+        {% endfor %}
 {% endblock %}

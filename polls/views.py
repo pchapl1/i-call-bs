@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import *
+from .models import Poll
 from django.urls import reverse_lazy
-from .forms import *
+from .forms import PollForm
+from django.db.models import Count
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
@@ -16,7 +17,6 @@ class CreatePollView(CreateView):
     model = Poll
     template_name = 'polls/create_poll.html'
     form_class = PollForm
-
 
     # =============================READ VIEWS=============================
 class DetailPollView(DetailView):
@@ -37,6 +37,7 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
+    dislikes = Poll.objects.annotate(count_dislikes=Count('dislikes')).order_by('count_dislikes')
 
     # =============================UPDATE VIEWS=============================
 class EditPollView(UpdateView):
