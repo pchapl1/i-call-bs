@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls',
     'accounts',
+    'django_bootstrap_icons',
 
 ]
 
