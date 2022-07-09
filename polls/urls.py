@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', HomeView.as_view(), name = 'home'), 
+    path('about/', AboutView.as_view(), name = 'about'),
 
     # =============================CREATE=============================
     path('new-poll', CreatePollView.as_view(), name = 'create_poll'), 

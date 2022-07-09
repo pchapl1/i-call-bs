@@ -12,7 +12,8 @@ import json
 class HomeView(LoginRequiredMixin, ListView):
     model = Poll
     template_name = 'home.html'
-
+class AboutView(TemplateView):   
+    template_name = 'about.html'
 
     def get_context_data(self, **kwargs):
         try:
@@ -109,4 +110,4 @@ def del_poll(request, pk):
         poll.delete()
         return redirect(reverse('home'))
     except Exception as e:
-       print(f'poll delete error : {e}')
+        print(f'poll delete error : {e}')

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} {% endblock title %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
@@ -37,20 +38,45 @@
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
             </li>
-            {% if not user.is_authenticated %}
-              <li class="nav-item active px-4">
-                <a class="nav-link" href="{% url 'login' %}">Log in</a>
-              </li>
-              <li class="nav-item active px-4">
-                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-              </li>
+            
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
+            </li> 
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'password_reset' %}">Password Reset</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+            </li>
+            
+            {% else %}
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'login' %}">Log in</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+            </li>
             {% endif %}
             </div>
           </ul>
         </div>
     
       </nav>
-    <div class="container">
+    
+      <div class="left_sidebar">
+    
+        <div class="col-md-2">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
+        <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
+        <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
+        </div>
+    
+</div>
         {% block content %}
     
         {% endblock %}
