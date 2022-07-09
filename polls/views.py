@@ -88,7 +88,7 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
-    dislikes = Poll.objects.annotate(count_dislikes=Count('dislikes')).order_by('count_dislikes')
+    
 
     # =============================UPDATE VIEWS=============================
 class EditPollView(UpdateView):
