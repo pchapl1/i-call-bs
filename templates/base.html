@@ -30,9 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active px-4">
-              <li class="nav-item active px-4">
-                <a class="nav-link" href="{% url 'create_poll' %}">{% bs_icon 'plus' %}New Poll</a>
-              </li>
+              
               <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
             </li>
             <li class="nav-item active px-4">
@@ -44,7 +42,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item active px-4">
-              <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
+              <a class="nav-link" href="{% url 'create_poll' %}">{% bs_icon 'plus' %}New Poll</a>
             </li> 
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'password_reset' %}">Password Reset</a>

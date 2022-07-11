@@ -24,7 +24,7 @@ class Poll(models.Model):
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='polls')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
+    
     def __str__(self):
         return self.title
 

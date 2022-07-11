@@ -217,31 +217,39 @@ li {
 
 /*---------Carousel on Popular Today ------*/
 
-.carousel{
-    height: 300px;
-    margin:flex;
-    margin-right: 30px;
-    margin-top:40px;
-    background-color: #999;
+.carousel-inner{
+    width:750px; 
+    /* max-width:750px;  */
+    display: inline-flex;
+    resize:none;
+    
+} 
+.carousel-inner img{
+    display:flex; 
+    margin:auto;
+    width: 400px; 
+    height:550px;
+    border:solid black 3px;
+    
+}
+.carousel-inner p{
+    color:white;
+}
+.carousel-inner h5{
+    text-decoration: underline;
+    font-size: 40px;
+}
+#carouselExampleControls{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.carousel .item {
-    height: 100px;
-    width: 800px;
-    }
-
-.item img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-height: 500px;
-    width: 800px;
-    }
-
-
-
+    width: 60%; 
+    background-color: rgb(153, 153, 153,.5);
+    float: right;
+    margin-right: 20%;
+    margin-top: 60px;
+    border-radius: 50%;
+} 
 
 .new-post-container{
     height: 500px;

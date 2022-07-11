@@ -30,6 +30,7 @@ urlpatterns = [
     path('del-poll/<pk>', views.del_poll, name = 'del_poll'), 
 
 
-
+#-------carousel--------
+    path('popular-today',views.showslides),
 
 ]

@@ -1,3 +1,4 @@
+from pickle import READONLY_BUFFER
 from urllib import response
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -112,3 +113,8 @@ def del_poll(request, pk):
         return redirect(reverse('home'))
     except Exception as e:
         print(f'poll delete error : {e}')
+
+# -----------------carousel-----------------
+
+def showslides(request):
+    return render(request,'popular_today.html')
