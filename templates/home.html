@@ -49,18 +49,6 @@
                 </div>
             </div>
         </div>
-{% if user.is_authenticated %}
-
-
-    <div class="container d-flex justify-content-center">
-        <div class="card my-5 w-50">
-            <h1>Home page</h1>
-            Hi {{ user.username }}!  Your account is in good standing.  Please feel free to explore the site.
-            <p><br><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-            <p>You are not logged in</p>
-            <a href="{% url 'login' %}">Log In</a>
-{% endif %}
     </div>
     </div>
 </div>
@@ -105,13 +93,6 @@ $(document).ready(function(){
 
 
 })
-
-
-
-
-
-
-
 
 
     
