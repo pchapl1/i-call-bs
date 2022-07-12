@@ -89,7 +89,7 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
-    
+    context_object_name = 'polls'
 
     # =============================UPDATE VIEWS=============================
 class EditPollView(UpdateView):
