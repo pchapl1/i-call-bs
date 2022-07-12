@@ -244,16 +244,16 @@ li {
     align-items: center;
     justify-content: center;
     width: 60%; 
-    background-color: rgb(153, 153, 153,.5);
+    background-color: black;
     float: right;
     margin-right: 20%;
     margin-top: 60px;
-    border-radius: 50%;
+    border: black;
 } 
 
 .new-post-container{
     height: 500px;
-    background-color: gray;
+    background-color:lightgrey;
     display: flex;
     margin:50px;
     margin-left: 250px;
