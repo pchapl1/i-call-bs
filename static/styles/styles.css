@@ -243,7 +243,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60%; 
+    width: 50%; 
     background-color: black;
     float: right;
     margin-right: 20%;
@@ -258,4 +258,14 @@ li {
     margin:50px;
     margin-left: 250px;
     
+}
+footer {
+    background: #252429;
+    padding-bottom: 0em;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    height: 50px;
+    z-index: -1;
+    color: #ffffff;
 }
