@@ -12,8 +12,6 @@ import json
 class HomeView(LoginRequiredMixin, ListView):
     model = Poll
     template_name = 'home.html'
-class AboutView(TemplateView):   
-    template_name = 'about.html'
 
     def get_context_data(self, **kwargs):
         try:
@@ -25,6 +23,10 @@ class AboutView(TemplateView):
             return context
         except Exception as e:
             print(f'context error : {e}')
+            
+class AboutView(TemplateView):   
+    template_name = 'about.html'
+
 
 
     # =============================CREATE VIEWS=============================
@@ -88,6 +90,40 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
+
+
+class CategoryView(ListView):
+    model = Poll
+    template_name = 'polls/categories.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+            context = super().get_context_data(**kwargs)
+            politics_polls = Poll.objects.filter(category = 1)
+            politics_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in politics_polls]
+            politics_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in politics_polls]
+            context['politics'] = zip(politics_polls,politics_bs,politics_truth)
+
+            sports_polls = Poll.objects.filter(category = 2)
+            sports_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in sports_polls]
+            sports_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in sports_polls]
+            context['sports'] = zip(sports_polls,sports_bs,sports_truth)
+
+
+            history_polls = Poll.objects.filter(category = 3)
+            history_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in history_polls]
+            history_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in history_polls]
+            context['history'] = zip(history_polls,history_bs,history_truth)
+
+            science_polls = Poll.objects.filter(category = 4)
+            science_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in science_polls]
+            science_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in science_polls]
+            context['science'] = zip(science_polls,science_bs,science_truth)
+
+
+            return context
+        except Exception as e:
+            print(f'context error : {e}')
 
     # =============================UPDATE VIEWS=============================
 class EditPollView(UpdateView):
