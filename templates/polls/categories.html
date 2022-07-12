@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap_icons %}
+{% block page_title %}
+    categories
+{% endblock %}
+
+
+{% block content %}
+<style>
+    body {
+  padding : 10px ;
+  
+}
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+</style>
+
+<div class="container">
+    <h5 class="text-center">
+        Categories 
+    </h5>
+    <div class="btn-group">
+        <button id="toggle-sports" class="btn-outline-dark">Sports</button>
+        <button id="toggle-science" class="btn-outline-dark">Science</button>
+        <button id="toggle-politics" class="btn-outline-dark">Politics</button>
+        <button id="toggle-history" class="btn-outline-dark">History</button>
+    </div>
+
+    <div class="sports-hidden">
+        {% for poll, bs, truth in sports %}
+            {{ poll.body }}
+        {% endfor %}
+    </div>
+
+    <div class="science-hidden">
+        {% for poll, bs, truth in science %}
+            {{ poll.body }}
+        {% endfor %}
+    </div>
+
+    <div class="politics-hidden">
+        {% for poll, bs, truth in politics %}
+            {{ poll.body }}
+        {% endfor %}
+    </div>
+    <div class="history-hidden">
+        {% for poll, bs, truth in history %}
+            {{ poll.body }}
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -16,6 +16,7 @@ urlpatterns = [
     # path('all/<int:pk>', AllPollsView.as_view(), name = 'read_polls'), 
     path('popular-today', PopularTodayView.as_view(), name = 'popular_today'), 
     path('rankings', RankingsView.as_view(), name = 'rankings'), 
+    path('categories', CategoryView.as_view(), name = 'categories'), 
 
 
 
