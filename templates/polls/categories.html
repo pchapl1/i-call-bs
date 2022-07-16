@@ -78,12 +78,11 @@
                       <form action="">
                         {% csrf_token %}
                         <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
-                        <span>{{ truth }}</span>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
                       </div>
                       <div class="is-bs mx-4">
-                        <a class="bs bs-vote" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
-                        <span>{{ bs }}</span>
-
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
                       </div>
                     </form>
                   </div>
@@ -118,13 +117,12 @@
                     <div class="not-bs d-flex mx-4">
                       <form action="">
                         {% csrf_token %}
-                        <a class="truth" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
-                        <span>{{ truth }}</span>
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
                       </div>
                       <div class="is-bs mx-4">
-                        <a class="bs" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
-                        <span>{{ bs }}</span>
-
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
                       </div>
                     </form>
                   </div>
@@ -157,13 +155,12 @@
                     <div class="not-bs d-flex mx-4">
                       <form action="">
                         {% csrf_token %}
-                        <a class="truth" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
-                        <span>{{ truth }}</span>
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
                       </div>
                       <div class="is-bs mx-4">
-                        <a class="bs" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
-                        <span>{{ bs }}</span>
-
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
                       </div>
                     </form>
                   </div>
@@ -195,13 +192,12 @@
                     <div class="not-bs d-flex mx-4">
                       <form action="">
                         {% csrf_token %}
-                        <a class="truth vote-truth" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
-                        <span>{{ truth }}</span>
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
                       </div>
                       <div class="is-bs mx-4">
-                        <a class="bs vote-bs" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
-                        <span>{{ bs }}</span>
-
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS </a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }} </span>
                       </div>
                     </form>
                   </div>
@@ -224,34 +220,8 @@
   crossorigin="anonymous"></script>
 <script>
 
-        $('.vote-truth').on('click', function(e){
-            e.preventDefault()
-
-            let true_vote = 'true';
-
-            let poll = $(this).attr('id')
-            console.log(poll)
-            $.ajax({
-            type: 'POST',
-            url: '/new-vote',
-            datatype: 'json', 
-            data: 
-            {
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-                true_vote: true_vote,
-                the_poll: poll
-            },
-            success:function(){
-                console.log('submitted')
-            }
-        })
-        })
-
 
     $(document).ready(function(){
-
-
-
 
         $('#toggle-sports').on('click', function(){
             $('.sports-hidden').show()
@@ -287,5 +257,6 @@
 
 
 </script>
+<script src="{% static 'js/vote.js' %}"></script>
 
 {% endblock content %}
