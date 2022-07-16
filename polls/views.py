@@ -45,26 +45,41 @@ class CreatePollView(CreateView):
 
     def get_initial(self):
         try:
-            
             initial = super(CreatePollView, self).get_initial()
             initial['created_by'] = self.request.user
-            print(initial['created_by'])
             return initial
         except Exception as e:
             print(f'create poll error: {e}')
 
 
-def create_vote(request, pk):
+def create_vote(request):
     try:
         response_data = {}
-        if request.method == 'POST':
-            form_data = request.POST
-            poll = Poll.objects.get(pk = pk)
-            if form_data['is_bs'] == 'true':
 
-                Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
-            else:
+        poll = Poll.objects.get(pk = 3)
+
+
+        if request.method == 'POST':
+
+            form_data = request.POST
+
+            poll_id = form_data['the_poll']
+
+            poll = Poll.objects.get(pk = poll_id)
+
+            print(f'poll: {poll}')
+
+            if form_data['vote'] == 'true':
+
                 Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
+
+            else:
+                Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
+
+            response_data['true_votes'] = len([x for x in poll.votes.all() if x.is_bs == False])
+            response_data['bs_votes'] = len([x for x in poll.votes.all() if x.is_bs == True])
+            response_data['poll_pk'] = poll.pk
+
             return HttpResponse(json.dumps(response_data), content_type='application.json')
     except Exception as e:
         print(f'create vote error: {e}')
@@ -99,18 +114,18 @@ class CategoryView(ListView):
     def get_context_data(self, **kwargs):
         try:
             context = super().get_context_data(**kwargs)
-            politics_polls = Poll.objects.filter(category = 1)
+            politics_polls = Poll.objects.filter(category = 3)
             politics_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in politics_polls]
             politics_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in politics_polls]
             context['politics'] = zip(politics_polls,politics_bs,politics_truth)
 
-            sports_polls = Poll.objects.filter(category = 2)
+            sports_polls = Poll.objects.filter(category = 1)
             sports_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in sports_polls]
             sports_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in sports_polls]
             context['sports'] = zip(sports_polls,sports_bs,sports_truth)
 
 
-            history_polls = Poll.objects.filter(category = 3)
+            history_polls = Poll.objects.filter(category = 2)
             history_bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in history_polls]
             history_truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in history_polls]
             context['history'] = zip(history_polls,history_bs,history_truth)

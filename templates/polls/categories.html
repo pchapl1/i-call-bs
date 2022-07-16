@@ -8,77 +8,255 @@
 
 {% block content %}
 <style>
-    body {
-  padding : 10px ;
-  
+.poll-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    border: 2px solid black;
+    padding: 3rem 4rem;
 }
 
-#exTab1 .tab-content {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
+.poll-container-header {
+    margin-bottom: 2rem;
 }
 
-#exTab2 h3 {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
+.btn.btn-outline-dark {
+    margin-bottom: 4rem;
 }
 
-/* remove border radius for the tab */
-
-#exTab1 .nav-pills > li > a {
-  border-radius: 0;
+.hidden{
+    display: none;
 }
 
-/* change border radius for the tab , apply corners on top*/
-
-#exTab3 .nav-pills > li > a {
-  border-radius: 4px 4px 0 0 ;
+.poll-card {
+    min-width: 80%;
+    border: 2px solid gray;
+    margin-bottom:2rem ;
+    color: black;
+    border-radius: 5px;
 }
 
-#exTab3 .tab-content {
-  color : white;
-  background-color: #428bca;
-  padding : 5px 15px;
+.poll-card p{
+    color: black;
 }
 
 </style>
 
-<div class="container">
-    <h5 class="text-center">
-        Categories 
-    </h5>
-    <div class="btn-group">
-        <button id="toggle-sports" class="btn-outline-dark">Sports</button>
-        <button id="toggle-science" class="btn-outline-dark">Science</button>
-        <button id="toggle-politics" class="btn-outline-dark">Politics</button>
-        <button id="toggle-history" class="btn-outline-dark">History</button>
-    </div>
 
-    <div class="sports-hidden">
-        {% for poll, bs, truth in sports %}
-            {{ poll.body }}
-        {% endfor %}
-    </div>
+<div class="container d-flex justify-content-center">
+    <div class="poll-container d-flex justify-content-center mt-5">
+        <div class="poll-container-header">
+            <h5 class="text-center">
+                Categories 
+            </h5>
+        </div>
+        <div class="btn-group">
+            <button id="toggle-sports" class="btn btn-outline-dark">Sports</button>
+            <button id="toggle-science" class="btn btn-outline-dark">Science</button>
+            <button id="toggle-politics" class="btn btn-outline-dark">Politics</button>
+            <button id="toggle-history" class="btn btn-outline-dark">History</button>
+        </div>
+    
+        <div class="sports-hidden hidden">
+            {% for poll, bs, truth in sports %}
+            <div class="poll-card">
+                <div class="card-header">
+                    <h6>{{ poll.category }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                    {{ poll.body }}
+                    </p>
+                    <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
+                </div>
+                <div class="text-center">
+                    <strong><p class="text-black mb-0">Is it BS?</p></strong>
+                  </div>
+                <div class="d-flex justify-content-center">
+                    <div class="not-bs d-flex mx-4">
+                      <form action="">
+                        {% csrf_token %}
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+                      </div>
+                      <div class="is-bs mx-4">
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+                      </div>
+                    </form>
+                  </div>
+                <div class="card-footer">
+                    {% if user == poll.created_by %}
+                    <li><small><span><a class="mx-3 text-primary" href="">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+                    {% endif %}
+                    <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
+                  </div>
+            </div>
 
-    <div class="science-hidden">
-        {% for poll, bs, truth in science %}
-            {{ poll.body }}
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    
+        <div class="science-hidden hidden">
 
-    <div class="politics-hidden">
-        {% for poll, bs, truth in politics %}
-            {{ poll.body }}
-        {% endfor %}
-    </div>
-    <div class="history-hidden">
-        {% for poll, bs, truth in history %}
-            {{ poll.body }}
-        {% endfor %}
+            {% for poll, bs, truth in science %}
+            <div class="poll-card">
+                <div class="card-header">
+                    <h6>{{ poll.category }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                    {{ poll.body }}
+                    </p>
+                    <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
+                </div>
+                <div class="text-center">
+                    <strong><p class="text-black mb-0">Is it BS?</p></strong>
+                  </div>
+                <div class="d-flex justify-content-center">
+                    <div class="not-bs d-flex mx-4">
+                      <form action="">
+                        {% csrf_token %}
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+                      </div>
+                      <div class="is-bs mx-4">
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+                      </div>
+                    </form>
+                  </div>
+                <div class="card-footer">
+                    {% if user == poll.created_by %}
+                    <li><small><span><a class="mx-3 text-primary" href="">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+                    {% endif %}
+                    <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
+                  </div>
+            </div>
+            {% endfor %}
+        </div>
+    
+        <div class="politics-hidden hidden">
+            {% for poll, bs, truth in politics %}
+            <div class="poll-card">
+                <div class="card-header">
+                    <h6>{{ poll.category }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                    {{ poll.body }}
+                    </p>
+                    <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
+                </div>
+                <div class="text-center">
+                    <strong><p class="text-black mb-0">Is it BS?</p></strong>
+                  </div>
+                <div class="d-flex justify-content-center">
+                    <div class="not-bs d-flex mx-4">
+                      <form action="">
+                        {% csrf_token %}
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+                      </div>
+                      <div class="is-bs mx-4">
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+                      </div>
+                    </form>
+                  </div>
+                <div class="card-footer">
+                    {% if user == poll.created_by %}
+                    <li><small><span><a class="mx-3 text-primary" href="">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+                    {% endif %}
+                    <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
+                  </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="history-hidden hidden">
+            {% for poll, bs, truth in history %}
+            <div class="poll-card">
+                <div class="card-header">
+                    <h6>{{ poll.category }}</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                    {{ poll.body }}
+                    </p>
+                    <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
+                </div>
+                <div class="text-center">
+                    <strong><p class="text-black mb-0">Is it BS?</p></strong>
+                  </div>
+                <div class="d-flex justify-content-center">
+                    <div class="not-bs d-flex mx-4">
+                      <form action="">
+                        {% csrf_token %}
+                        <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                        <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+                      </div>
+                      <div class="is-bs mx-4">
+                        <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS </a>
+                        <span id="bs-vote-count-{{poll.pk}}">{{ bs }} </span>
+                      </div>
+                    </form>
+                  </div>
+                <div class="card-footer">
+                    {% if user == poll.created_by %}
+                    <li><small><span><a class="mx-3 text-primary" href="">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+                    {% endif %}
+                    <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
+                  </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script>
+
+
+    $(document).ready(function(){
+
+        $('#toggle-sports').on('click', function(){
+            $('.sports-hidden').show()
+            $('.science-hidden').hide()
+            $('.politics-hidden').hide()
+            $('.history-hidden').hide()
+        })
+
+        $('#toggle-science').on('click', function(){
+            $('.sports-hidden').hide()
+            $('.science-hidden').show()
+            $('.politics-hidden').hide()
+            $('.history-hidden').hide()
+        })
+
+        $('#toggle-politics').on('click', function(){
+            $('.sports-hidden').hide()
+            $('.science-hidden').hide()
+            $('.politics-hidden').show()
+            $('.history-hidden').hide()
+        })
+
+        $('#toggle-history').on('click', function(){
+            $('.sports-hidden').hide()
+            $('.science-hidden').hide()
+            $('.politics-hidden').hide()
+            $('.history-hidden').show()
+        })
+
+
+
+    })
+
+
+</script>
+<script src="{% static 'js/vote.js' %}"></script>
 
 {% endblock content %}
