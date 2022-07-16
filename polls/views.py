@@ -45,24 +45,30 @@ class CreatePollView(CreateView):
 
     def get_initial(self):
         try:
-            
             initial = super(CreatePollView, self).get_initial()
             initial['created_by'] = self.request.user
-            print(initial['created_by'])
             return initial
         except Exception as e:
             print(f'create poll error: {e}')
 
 
-def create_vote(request, pk):
+def create_vote(request):
     try:
         response_data = {}
+
         if request.method == 'POST':
             form_data = request.POST
-            poll = Poll.objects.get(pk = pk)
-            if form_data['is_bs'] == 'true':
 
+            print(form_data['the_poll'])
+
+            poll = Poll.objects.get(pk = int(form_data['the_poll']))
+            
+            print(f'poll: {poll}')
+
+            if form_data['true_vote'] == 'true':
+                print('true vote')
                 Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
+                print('vote created')
             else:
                 Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
             return HttpResponse(json.dumps(response_data), content_type='application.json')

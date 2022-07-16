@@ -33,11 +33,7 @@
               <li class="nav-item active px-4">
                 <a class="nav-link" href="{% url 'create_poll' %}">{% bs_icon 'plus' %}New Poll</a>
               </li>
-              <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
-            </li>
-            <li class="nav-item active px-4">
-              <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
-            </li>
+
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'categories' %}">Categories</a>
             </li>
@@ -45,9 +41,7 @@
               <a class="nav-link" href="{% url 'about' %}">About Us</a>
             </li>
             {% if user.is_authenticated %}
-            <li class="nav-item active px-4">
-              <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
-            </li> 
+
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'password_reset' %}">Password Reset</a>
             </li>
