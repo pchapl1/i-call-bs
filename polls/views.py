@@ -9,6 +9,7 @@ from .forms import *
 from django.contrib.auth.models import User
 import json
 from datetime import date
+from django.db.models import Count
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Poll
@@ -104,22 +105,15 @@ class PopularTodayView(ListView):
 
     def get_context_data(self, **kwargs):
         try:
+            context = super().get_context_data(**kwargs)
+            polls = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes')   
 
-            context = {}
-            polls = Poll.objects.all()
-            voted_today_list = [ [ i for i in x.votes.all() if i.date_created == date.today() ] for x in polls if x.votes.all() ]
+            bs_votes = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
+            true_votes = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
+            context['polls'] = zip(polls, bs_votes, true_votes, )
 
-            for poll in polls:
-                count = 0
-                for vote in poll.votes.all():
-                    if vote.date_created == date.today():
-                        count +=1
-                        context[str(poll.pk)] = count
-
-
-
-
-
+            print(bs_votes)
+            print(true_votes)
 
             return context
         except Exception as e:
@@ -168,12 +162,6 @@ class EditPollView(UpdateView):
     model = Poll
     template_name = 'polls/update_poll.html'
     form_class = PollForm
-
-
-
-# def poll_vote(request, pk):
-#     poll = Poll.objects.get(id=pk)
-#     vote = Vote.objects.create()
 
 
     # =============================DELETE VIEWS=============================

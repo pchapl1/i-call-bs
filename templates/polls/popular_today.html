@@ -15,7 +15,7 @@
     </h5>
 </div>
 <div class="carousel">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-wrap="false" data-interval="10000" data-pause="hover">
+    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-wrap="false" data-interval="10000" data-pause="hover">
         <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -40,6 +40,50 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
         </a>
-    </div>
+    </div> -->
 </div>
+
+<div class="">
+    {% for poll, bs, truth in polls %}
+    <div class="poll-card">
+        <div class="card-header">
+            <h6>{{ poll.category }}</h6>
+        </div>
+        <div class="card-body">
+            <p>
+            {{ poll.body }}
+            </p>
+            <footer class="blockquote-footer">{{ poll.bullshitter }}</footer>
+        </div>
+        <div class="text-center">
+            <strong><p class="text-black mb-0">Is it BS?</p></strong>
+          </div>
+        <div class="d-flex justify-content-center">
+            <div class="not-bs d-flex mx-4">
+              <form action="">
+                {% csrf_token %}
+                <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+              </div>
+              <div class="is-bs mx-4">
+                <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+              </div>
+            </form>
+          </div>
+        <div class="card-footer">
+            {% if user == poll.created_by %}
+            <li><small><span><a class="mx-3 text-primary" href="">edit</a><a class="text-primary" href="{% url 'del_poll' poll.pk %}">delete</a></span></small></li>
+            {% endif %}
+            <small class="text-muted">created by: {{poll.created_by}} {{ poll.created_on|timesince }} ago </small>
+          </div>
+    </div>
+
+    {% endfor %}
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="  crossorigin="anonymous"></script>
+<script src="{% static 'js/vote.js' %}"></script>
+
+
+
 {% endblock %}
