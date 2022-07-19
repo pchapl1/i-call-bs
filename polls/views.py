@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from .forms import *
 from django.contrib.auth.models import User
 import json
-from datetime import date
+from datetime import datetime, timedelta
 from django.db.models import Count
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -105,15 +105,19 @@ class PopularTodayView(ListView):
 
     def get_context_data(self, **kwargs):
         try:
+
             context = super().get_context_data(**kwargs)
-            polls = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes')   
+
+            # polls = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes').filter()   
+
+            yesterday = datetime.today() - timedelta(days=1)
+            votes = Vote.objects.filter(date_created__gt = yesterday)
+            polls = []
+            polls = {x.poll for x in votes if x.poll not in polls}
 
             bs_votes = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
             true_votes = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
             context['polls'] = zip(polls, bs_votes, true_votes, )
-
-            print(bs_votes)
-            print(true_votes)
 
             return context
         except Exception as e:
@@ -122,6 +126,18 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+
+            context = super().get_context_data(**kwargs)
+
+            # context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes').filter()   
+
+
+            return context
+        except Exception as e:
+            print(f'context error : {e}')
 
 
 class CategoryView(ListView):
