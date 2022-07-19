@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from .forms import *
 from django.contrib.auth.models import User
 import json
+from datetime import date
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Poll
@@ -72,9 +73,13 @@ def create_vote(request):
             if form_data['vote'] == 'true':
 
                 Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
+                poll.total_votes += 1
+                poll.save()
 
             else:
                 Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
+                poll.total_votes += 1
+                poll.save()
 
             response_data['true_votes'] = len([x for x in poll.votes.all() if x.is_bs == False])
             response_data['bs_votes'] = len([x for x in poll.votes.all() if x.is_bs == True])
@@ -91,16 +96,34 @@ class DetailPollView(DetailView):
     template_name = 'polls/poll_detail.html'
 
 
-# class AllPollsView(ListView):
-#     model = Poll
-#     template_name = 'home.html'
-#     context_object_name = 'polls'
 
 
 class PopularTodayView(ListView):
     model = Poll
     template_name = 'polls/popular_today.html'
 
+    def get_context_data(self, **kwargs):
+        try:
+
+            context = {}
+            polls = Poll.objects.all()
+            voted_today_list = [ [ i for i in x.votes.all() if i.date_created == date.today() ] for x in polls if x.votes.all() ]
+
+            for poll in polls:
+                count = 0
+                for vote in poll.votes.all():
+                    if vote.date_created == date.today():
+                        count +=1
+                        context[str(poll.pk)] = count
+
+
+
+
+
+
+            return context
+        except Exception as e:
+            print(f'context error : {e}')
 
 class RankingsView(ListView):
     model = Poll
