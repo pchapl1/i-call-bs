@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block title %}{{ post.title }}{% endblock title %}
+{% block content %}
+<div
+class="poll_detail"
+style="
+    margin: 20px;
+    padding: 10px;
+    border: solid 2px;
+    background: rgb(211, 211, 211, 0.9);
+"
+>
+<h1>{{ poll.title }}</h1>
+<h5>
+    {{ poll.author }}
+</h5>
+<p style="margin: 10px; padding: 10px; font-size: 20px;color:black">{{ poll.body }}</p>
+<h5>{{ poll.created_on }}</h5>
+{% if user.is_authenticated %}
+<i class=" vote upvote increment fas fa-chevron-circle-up" data-userid ="{{ request.user.id }}" data-commentid="{{ comment.id }}" data-action='UP' ></i>
+
+<i class="vote downvote increment fas fa-chevron-circle-down" data-userid ="{{ request.user.id }}" data-commentid="{{ comment.id }}" data-action='DOWN'></i>
+{% endif %}
+</div>
+
+{% endblock content %}

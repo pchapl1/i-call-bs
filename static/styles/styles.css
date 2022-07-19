@@ -269,3 +269,6 @@ footer {
     z-index: -1;
     color: #ffffff;
 }
+.poll_detail {
+    margin-top: 100px;
+}

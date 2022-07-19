@@ -18,9 +18,10 @@
         
         <div class="card post-list" style="margin:10px;background-color: rgb(235, 235, 235, .9);">
             <div class="card-body">
-            <h5 class="card-title" style="color: black;">Poll #{{ poll.id }}</h5>
+            <h5 class="card-title" style="color: black;">{{ poll.bullshitter }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ poll.title }}</h6>
-            <p class="card-text" style="color: black;">{{ poll.body| truncatechars:500}}</p>   
+            <p class="card-text" style="color: black;">{{ poll.body| truncatechars:500}}</p> 
+            <p>{{ poll.likes }}      |           {{ poll.dislikes }}</p>  
             <a href="{% url 'read_poll' poll.id %}" class="card-link">Continue reading..</a>
             </div>
             
