@@ -138,6 +138,46 @@ a.article:hover {
     color: #fff !important;
 }
 
+
+
+.poll-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    border: 2px solid black;
+    padding: 3rem 4rem;
+}
+
+.poll-container-header {
+    margin-bottom: 2rem;
+}
+
+.btn.btn-outline-dark {
+    margin-bottom: 4rem;
+}
+
+.hidden{
+    display: none;
+}
+
+.poll-card {
+    min-width: 80%;
+    border: 2px solid gray;
+    margin-bottom:2rem ;
+    color: black;
+    border-radius: 5px;
+}
+
+.poll-card p{
+    color: black;
+}
+
+
+
+
+
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

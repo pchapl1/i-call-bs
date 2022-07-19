@@ -8,7 +8,7 @@ urlpatterns = [
 
     # =============================CREATE=============================
     path('new-poll', CreatePollView.as_view(), name = 'create_poll'), 
-    path('new-vote/<int:pk>', views.create_vote, name = 'create_vote'), 
+    path('new-vote', views.create_vote, name = 'create_vote'), 
     
 
     # =============================READ=============================
@@ -16,6 +16,7 @@ urlpatterns = [
     # path('all/<int:pk>', AllPollsView.as_view(), name = 'read_polls'), 
     path('popular-today', PopularTodayView.as_view(), name = 'popular_today'), 
     path('rankings', RankingsView.as_view(), name = 'rankings'), 
+    path('categories', CategoryView.as_view(), name = 'categories'), 
 
 
 
@@ -27,7 +28,7 @@ urlpatterns = [
 
 
     # =============================DELETE=============================
-    path('del-poll/<pk>', views.del_poll, name = 'del_poll'), 
+    path('del_poll/<pk>', views.del_poll, name = 'del_poll'), 
 
 
 #-------carousel--------

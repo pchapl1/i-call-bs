@@ -7,7 +7,7 @@
 
 
 {% block content %}
-
+{% load bootstrap_icons %}
 <div class="container">
     <h5 class="text-center">
         As voted by the users, here are...
@@ -21,12 +21,25 @@
             <h5 class="card-title" style="color: black;">{{ poll.bullshitter }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ poll.title }}</h6>
             <p class="card-text" style="color: black;">{{ poll.body| truncatechars:500}}</p> 
-            <p>{{ poll.likes }}      |           {{ poll.dislikes }}</p>  
+            <p style="text-align: center;">Total Votes: {{ poll.total_votes }}</p>  
+            
+            <div class="not-bs mx-4 text-center"  >
+                <form action="" style="display:block; text-align: center;">
+                    {% csrf_token %}
+                <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
+                <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+                </div>
+                <div class="is-bs mx-4 text-center">
+                <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
+                <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+                </div>
+            </form><br>
             <a href="{% url 'read_poll' poll.id %}" class="card-link">Continue reading..</a>
             </div>
-            
+            </div>
         </div>
     
 
+        
         {% endfor %}
 {% endblock %}
