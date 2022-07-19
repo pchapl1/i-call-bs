@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from django.db.models import Count
+from collections import Counter
 
 class Category(models.Model):
     type = models.CharField(max_length=55)
@@ -32,6 +34,13 @@ class Poll(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
+    def get_total_votes(self):
+        votes_today = self.votes.all()
+        count = 0
+        for x in votes_today:
+            if x.date_created == date.today():
+                count +=1
+        return count
 
 class Vote(models.Model):
     is_bs = models.BooleanField(blank=True, null=True)
