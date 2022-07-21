@@ -17,6 +17,7 @@ class PollForm(ModelForm):
             'dislikes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
             'total_votes' : forms.HiddenInput(attrs={'class' : 'form-control' }),
             'created_by' : forms.HiddenInput(attrs={'class' : 'form-control' }),
+            'category' : forms.Select(attrs={'class' : 'form-control form-select'}),
         }
 
 
