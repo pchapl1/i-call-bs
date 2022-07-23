@@ -60,7 +60,6 @@ def create_vote(request):
 
         poll = Poll.objects.get(pk = 3)
 
-
         if request.method == 'POST':
 
             form_data = request.POST
@@ -69,15 +68,18 @@ def create_vote(request):
 
             poll = Poll.objects.get(pk = poll_id)
 
-            print(f'poll: {poll}')
-
+            user_votes_bs = [x.voted_on_by for x in poll.votes.all() if x.is_bs == True]
+            user_votes_truth = [x.voted_on_by for x in poll.votes.all() if x.is_bs == False]
+            
             if form_data['vote'] == 'true':
 
-                Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
-                poll.total_votes += 1
-                poll.save()
+                if request.user not in user_votes_bs:
 
-            else:
+                    Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
+                    poll.total_votes += 1
+                    poll.save()
+
+            elif request.user not in user_votes_truth:
                 Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
                 poll.total_votes += 1
                 poll.save()
