@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'bs_app.wsgi.application'
+WSGI_APPLICATION = 'bs_app.wsgi.application'
 
 
 # Database
@@ -133,7 +133,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / ("static")]
 
 
-# BS_APP_ICONS_CACHE = os.path.join(STATIC_ROOT, 'icon_cache')
+BS_APP_ICONS_CACHE = os.path.join(STATIC_ROOT, 'icon_cache')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
