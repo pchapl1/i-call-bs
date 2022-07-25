@@ -312,3 +312,6 @@ footer {
 .poll_detail {
     margin-top: 100px;
 }
+.card-body{
+    flex: 0 1 24%
+}

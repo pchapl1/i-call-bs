@@ -25,11 +25,11 @@ style="
     <form action="" style="display:block; text-align: center;">
         {% csrf_token %}
     <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
-    <span id="true-vote-count-{{poll.pk}}">{{ truth }}</span>
+    <span id="true-vote-count-{{poll.pk}}">{{ truth|length }}</span>
     </div>
     <div class="is-bs mx-4 text-center">
     <a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS</a>
-    <span id="bs-vote-count-{{poll.pk}}">{{ bs }}</span>
+    <span id="bs-vote-count-{{poll.pk}}">{{ bs|length }}</span>
     </div>
 </form><br>
 

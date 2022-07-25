@@ -10,7 +10,7 @@ from .forms import *
 from django.contrib.auth.models import User
 import json
 from datetime import datetime, timedelta
-from django.db.models import Count
+from django.db.models import Count, Max
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -132,10 +132,8 @@ class RankingsView(ListView):
 
     def get_context_data(self, **kwargs):
         try:
-
             context = super().get_context_data(**kwargs)
-
-            # context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes').filter()   
+            context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes').filter()   
 
 
             return context

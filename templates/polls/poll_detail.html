@@ -21,8 +21,8 @@ style="
 <h5>created: {{ poll.created_on }} | last updated: {{ poll.updated_on }}</h5>
 {% if user.is_authenticated %}
 <p>Total Votes: {{ poll.total_votes }}</p>
-<a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %} Total BS      |</a>
-<a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %}    Truth</a>
+<a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %}     {{ bs|length }}   BS  |</a>
+<a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %}    {{ truth|length }} Truth </a>
 
 {% endif %}
 </div>
