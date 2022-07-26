@@ -8,23 +8,30 @@
 
 {% block content %}
 {% load bootstrap_icons %}
-<div class="container">
+<div class="container" style="margin-top:100px;">
     <h5 class="text-center">
         As voted by the users, here are...
     </h5>
     <h2 class="text-center">History's Biggest Bull$#!+ers</h2>
 </div>
 {% for poll in polls %}
-    <div class="row" style="flex-direction: column;">
-        <div class="col align-self-center" style="width:auto;">  
-            <div class="card post-list" style="margin:10px;background-color: rgb(235, 235, 235, .9); align-content: center;">
-            <div class="card-body">
+    
+<div class="column">    
+    <div class="row" style="flex-direction: column;position:relative;">
+        <div class="col align-self-center" style="width:auto;margin:20px;">  
+            <div style="font-size:28px;">
+            {{ forloop.counter }}
+            </div>
+            <ol class="list-group list-group">
+                <li class="list-group-item">
+            <div class="card post-list" style="margin:10px;background-color: rgb(235, 235, 235, .9); align-content: center; height:min-content;width: 500px;">
+                <div class="card-body">
             <h5 class="card-title" style="color: black;">{{ poll.bullshitter }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ poll.title }}</h6>
             <p class="card-text" style="color: black;">{{ poll.body| truncatechars:500}}</p> 
             <p style="text-align: center;">Total Votes: {{ poll.total_votes }}</p>  
             
-            <div class="not-bs mx-4 text-center"  >
+                <div class="not-bs mx-4 text-center"  >
                 <form action="" style="display:block; text-align: center;">
                     {% csrf_token %}
                 <a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %} Truth</a>
@@ -36,11 +43,13 @@
                 </div>
             </form><br>
             <a href="{% url 'read_poll' poll.id %}" class="card-link">Continue reading..</a>
-            </div>
+                </div>
+                </li>
+            </ol>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-        
+
+
         {% endfor %}
 {% endblock %}
