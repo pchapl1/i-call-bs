@@ -71,8 +71,6 @@ def create_vote(request):
             votes = poll.votes.all()
 
             new_vote = form_data['vote']
-            
-            print(f'vote: {new_vote}')
 
             already_voted = False
 
@@ -84,36 +82,43 @@ def create_vote(request):
 
                     if vote.is_bs == True:
                         
-                        print('in the true vote section')
-
+                        # if the new vote is false and the old vote is True, switch the vote
                         if new_vote == 'false':
                             vote.is_bs = False
                             vote.save()
+                            print('vote switched from True to false')
+                            break
+
+                        # if the new vote is false and the old vote is false, delete the vote
                         else:
                             vote.delete()
                             print('deleted true vote')
-
+                            break
+                    
+                    # if the new vote is true and the old vote is false, switch the vote
                     if vote.is_bs == False:
                         if new_vote == 'true':
                             vote.is_bs = True
                             vote.save()
+                            print('vote switched from false to true')
+                            break
+                        # if the new vote is false and the old one is false, delete the vote
                         else:
                             vote.delete()
                             print('deleted bs vote')
-   
+                            break
+
             if not already_voted:
                 print('never voted')
                 if new_vote == 'true':
                     Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
-    
                 else:
                     Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
 
-        response_data['true_votes'] = len(Vote.objects.filter(poll = poll, is_bs = True))
-        response_data['bs_votes'] = len(Vote.objects.filter(poll = poll, is_bs = False))
-        response_data['poll_pk'] = poll.pk
-
-        return HttpResponse(json.dumps(response_data), content_type='application.json')
+            response_data['true_votes'] = len(Vote.objects.filter(poll = poll, is_bs = True))
+            response_data['bs_votes'] = len(Vote.objects.filter(poll = poll, is_bs = False))
+            response_data['poll_pk'] = poll.pk
+            return HttpResponse(json.dumps(response_data), content_type='application.json')
 
 
     except Exception as e:
