@@ -132,7 +132,8 @@ STATIC_URL = '/static/'
 #  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_DIRS = [BASE_DIR / ("static")]
 
-# BS_APP_ICONS_CACHE = os.path.join(STATIC_ROOT, 'icon_cache')
+
+BS_APP_ICONS_CACHE = os.path.join(STATIC_ROOT, 'icon_cache')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

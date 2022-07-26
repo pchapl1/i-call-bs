@@ -1,15 +1,17 @@
+from pickle import READONLY_BUFFER
 from urllib import response
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import *
+from .models import Poll
 from django.urls import reverse_lazy
 from .forms import *
 from django.contrib.auth.models import User
 import json
 from datetime import datetime, timedelta
-from django.db.models import Count
+from django.db.models import Count, Max
+
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Poll
@@ -166,14 +168,13 @@ class PopularTodayView(ListView):
 class RankingsView(ListView):
     model = Poll
     template_name = 'polls/rankings.html'
+    context_object_name = 'polls'
 
     def get_context_data(self, **kwargs):
         try:
-
             context = super().get_context_data(**kwargs)
-
-            # context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-num_votes').filter()   
-
+            context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-total_votes').filter()   
+            
 
             return context
         except Exception as e:
@@ -229,3 +230,8 @@ def del_poll(request, pk):
         return redirect(reverse('home'))
     except Exception as e:
         print(f'poll delete error : {e}')
+    return render(request, 'del_poll.html')
+# -----------------carousel-----------------
+
+def showslides(request):
+    return render(request,'popular_today.html')

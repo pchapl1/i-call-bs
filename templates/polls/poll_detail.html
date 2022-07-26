@@ -1,17 +1,30 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block page_title %}
-    poll detail
-{% endblock %}
-
-
+{% extends 'base.html' %}{% load bootstrap_icons %} {% block title %}{{ post.title }}{% endblock title %}
 {% block content %}
+<div
+class="poll_detail"
+style="
+    margin: 20px;
+    padding: 10px;
+    border: solid 2px;
+    background: rgb(211, 211, 211, 0.9);
+    margin-top: 250px;
+    margin-right: 100px;
+    margin-left: 100px;
+"
+>
 
-<div class="container">
-    <h5 class="text-center">
-        Poll Detail page
-    </h5>
+<h1>{{ poll.title }}</h1>
+<h3>
+    {{ poll.bullshitter }}
+</h3>
+<p style="margin: 10px; padding: 10px; font-size: 20px;color:black">{{ poll.body }}</p>
+<h5>created: {{ poll.created_on }} | last updated: {{ poll.updated_on }}</h5>
+{% if user.is_authenticated %}
+<p>Total Votes: {{ poll.total_votes }}</p>
+<a class="bs vote-bs" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-down' %}     {{ bs|length }}   BS  |</a>
+<a class="truth vote-truth" value="{{poll.pk}}" id="{{ poll.pk }}" href="">{% bs_icon 'hand-thumbs-up' %}    {{ truth|length }} Truth </a>
+
+{% endif %}
 </div>
 
-{% endblock %}
+{% endblock content %}
