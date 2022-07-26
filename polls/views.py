@@ -183,7 +183,6 @@ class RankingsView(ListView):
             context = super().get_context_data(**kwargs)
             context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-bs_votes')  
 
-
             return context
         except Exception as e:
             print(f'context error : {e}')
