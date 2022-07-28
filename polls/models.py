@@ -27,7 +27,7 @@ class Poll(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     # bullshitter_img = models.ImageField(upload_to= 'images/')
-
+    
     def __str__(self):
         return self.body
 

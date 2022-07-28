@@ -135,9 +135,10 @@ class RankingsView(ListView):
     def get_context_data(self, **kwargs):
         try:
             context = super().get_context_data(**kwargs)
+            polls = Poll.objects.all()
+            bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
+            truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
             context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-total_votes').filter()   
-            
-
             return context
         except Exception as e:
             print(f'context error : {e}')
