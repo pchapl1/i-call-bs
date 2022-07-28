@@ -31,7 +31,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
+            </li>
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+            </li>
+
             {% if user.is_authenticated %}  
+            <li class="nav-item active px-4">
+              <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
+            </li>
             <li class="nav-item active px-4">
               <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
             </li>
@@ -49,17 +64,11 @@
         </div>
     
       </nav>
-    
-      <div class="left_sidebar">
-    
-        <div class="col-md-2">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
-        <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
-        <a class="nav-link" href="{% url 'popular_today' %}">Popular Today</a>
-        <a class="nav-link" href="{% url 'create_poll' %}">New Submission</a>
-        </div>
-    
-</div>
+      <div class="text-center">
+        <h6>Welcome {{request.user}}!</h6>
+      </div>
+
+  
         {% block content %}
     
         {% endblock %}
