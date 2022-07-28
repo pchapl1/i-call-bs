@@ -26,15 +26,10 @@ class Poll(models.Model):
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='polls')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-<<<<<<< HEAD
-    # bullshitter_img = models.ImageField(upload_to= 'images/')
-    
-=======
     bs_votes = models.IntegerField(default=0)
     true_votes = models.IntegerField(default=0)
 
 
->>>>>>> 1602f0784376e0b6ebb4bdca35048f23125ba35c
     def __str__(self):
         return self.body
 
