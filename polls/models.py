@@ -43,7 +43,7 @@ class Poll(models.Model):
         return count
 
 class Vote(models.Model):
-    is_bs = models.BooleanField(blank=True, null=True)
+    is_bs = models.BooleanField(blank=True, null=True) # a false vote means its bullshit, true means true
     voted_on_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='votes')
     poll = models.ForeignKey(Poll, blank=True, null=True, on_delete=models.CASCADE, related_name='votes')
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
