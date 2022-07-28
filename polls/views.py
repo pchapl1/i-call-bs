@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Poll
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from .forms import *
 from django.contrib.auth.models import User
 import json
@@ -21,8 +21,8 @@ class HomeView(LoginRequiredMixin, ListView):
         try:
             context = super().get_context_data(**kwargs)
             polls = Poll.objects.all()
-            bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
-            truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
+            truth = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
+            bs = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
             context['polls'] = zip(polls,bs,truth)
             return context
         except Exception as e:
@@ -88,12 +88,15 @@ def create_vote(request):
                         if new_vote == 'false':
                             vote.is_bs = False
                             vote.save()
+                            poll.false_votes += 1
+                            poll.true_votes -= 1
                             print('vote switched from True to false')
                             break
 
-                        # if the new vote is false and the old vote is false, delete the vote
+                        # if the new vote is true and the old vote is true, delete the vote
                         else:
                             vote.delete()
+                            poll.true_votes -= 1
                             print('deleted true vote')
                             break
                     
@@ -102,11 +105,14 @@ def create_vote(request):
                         if new_vote == 'true':
                             vote.is_bs = True
                             vote.save()
+                            poll.true_votes += 1
+                            poll.false_votes -= 1
                             print('vote switched from false to true')
                             break
                         # if the new vote is false and the old one is false, delete the vote
                         else:
                             vote.delete()
+                            poll.false_votes -= 1
                             print('deleted bs vote')
                             break
 
@@ -114,8 +120,10 @@ def create_vote(request):
                 print('never voted')
                 if new_vote == 'true':
                     Vote.objects.create(is_bs = True, voted_on_by = request.user, poll = poll)
+                    poll.true_votes += 1
                 else:
                     Vote.objects.create(is_bs = False, voted_on_by = request.user, poll = poll)
+                    poll.bs_votes += 1
 
             response_data['true_votes'] = len(Vote.objects.filter(poll = poll, is_bs = True))
             response_data['bs_votes'] = len(Vote.objects.filter(poll = poll, is_bs = False))
@@ -173,10 +181,15 @@ class RankingsView(ListView):
     def get_context_data(self, **kwargs):
         try:
             context = super().get_context_data(**kwargs)
+<<<<<<< HEAD
             polls = Poll.objects.all()
             bs = [len(Vote.objects.filter(poll=x, is_bs = True)) for x in polls]
             truth = [len(Vote.objects.filter(poll=x, is_bs = False)) for x in polls]
             context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-total_votes').filter()   
+=======
+            context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-bs_votes')  
+
+>>>>>>> 1602f0784376e0b6ebb4bdca35048f23125ba35c
             return context
         except Exception as e:
             print(f'context error : {e}')

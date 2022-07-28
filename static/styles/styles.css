@@ -299,7 +299,7 @@ li {
     margin-left: 250px;
     
 }
-footer {
+/* footer {
     background: #252429;
     padding-bottom: 0em;
     position: -webkit-sticky;
@@ -308,7 +308,7 @@ footer {
     height: 50px;
     z-index: -1;
     color: #ffffff;
-}
+} */
 .poll_detail {
     margin-top: 100px;
 }
