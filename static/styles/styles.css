@@ -199,7 +199,7 @@ a.article:hover {
     border-radius: 40px !important;
     min-width: 175px;
     margin-left: 3px;
-  }
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -314,7 +314,4 @@ li {
 }
 .card-body{
     flex: 0 1 24%
-}
-body {
-    background: url(..static/images/bull.jpg); 
 }
