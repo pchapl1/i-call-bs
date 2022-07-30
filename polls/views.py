@@ -112,6 +112,7 @@ def create_vote(request):
                         # if the new vote is false and the old one is false, delete the vote
                         else:
                             vote.delete()
+
                             poll.false_votes -= 1
                             print('deleted bs vote')
                             break
@@ -139,8 +140,6 @@ def create_vote(request):
 class DetailPollView(DetailView):
     model = Poll
     template_name = 'polls/poll_detail.html'
-
-
 
 
 class PopularTodayView(ListView):
@@ -181,7 +180,8 @@ class RankingsView(ListView):
     def get_context_data(self, **kwargs):
         try:
             context = super().get_context_data(**kwargs)
-            context['polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-bs_votes')  
+            context['bs_polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-bs_votes')  
+            context['true_polls'] = Poll.objects.annotate(num_votes= Count('votes')).order_by('-true_votes')  
 
             return context
         except Exception as e:
